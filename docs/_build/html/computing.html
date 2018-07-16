@@ -1,0 +1,172 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Neuroimaging Computing Resources &#8212; TAMU MRI Resources 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Converting Raw Data" href="conversion.html" />
+    <link rel="prev" title="Scanning at TIPS" href="scanning.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="neuroimaging-computing-resources">
+<h1>Neuroimaging Computing Resources<a class="headerlink" href="#neuroimaging-computing-resources" title="Permalink to this headline">¶</a></h1>
+<p>This page gives an overview of the resources available for neuroimaging computing and date storage.</p>
+<div class="section" id="data-storage-server">
+<h2>Data Storage Server<a class="headerlink" href="#data-storage-server" title="Permalink to this headline">¶</a></h2>
+<p>Once a scan is completed, it is transferred to the Department’s storage server (see your PI or Hugh McCann for access). This server had to be mounted on your local computer. Once the server is mounted on your computer you can transfer the files to your local workstations or to a computing cluster. Both brazos and terra are accessible through globus. You must install globus on your local computer and set it up as an endpoint. As part of the set-up, you must add access to mounted drives (e.g., the storage share or GoogleDrive), as shown <a class="reference external" href="https://docs.globus.org/how-to/globus-connect-personal-mac/">in these instructions</a>.</p>
+<p><a class="reference external" href="http://www.brazos.tamu.edu/docs/globusonline.html/">Brazos Globus Instructions</a>
+<a class="reference external" href="https://hprc.tamu.edu/wiki/SW:GlobusConnect">Terra Globus Instructions</a></p>
+</div>
+<div class="section" id="using-a-computing-cluster">
+<h2>Using a computing cluster<a class="headerlink" href="#using-a-computing-cluster" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://campuscluster.illinois.edu/user_info/doc/beginner.html">https://campuscluster.illinois.edu/user_info/doc/beginner.html</a></p>
+</div>
+<div class="section" id="brazos-computing-cluster">
+<h2>Brazos Computing Cluster<a class="headerlink" href="#brazos-computing-cluster" title="Permalink to this headline">¶</a></h2>
+<p>Brazos is a high-throughput computing cluster maintained by the College of Science. The cluster is primarily available to stakeholders. PBSI has a stake in brazos which includes priority access to 128 computing cores. The remainder of the free computing cores are available via the background queue.</p>
+<div class="section" id="connecting-to-brazos">
+<h3>Connecting to Brazos<a class="headerlink" href="#connecting-to-brazos" title="Permalink to this headline">¶</a></h3>
+<p>Brazos is accessible to approved users via <code class="docutils literal notranslate"><span class="pre">ssh</span></code>. See also <a class="reference external" href="http://www.brazos.tamu.edu/docs/login.html/">login information</a>.</p>
+<p>On a windows machine you can connect with <a class="reference external" href="https://www.putty.org/">putty</a> or <a class="reference external" href="https://mobaxterm.mobatek.net/">MobaXterm</a>. On a mac, simply use the built-in terminal (I recommend installing the iTerm2 terminal instead of using the built-in terminal).</p>
+<p>If you only need occasional graphics, you should be fine by enabling X-forwarding with the -Y flag in your ssh command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">Y</span> <span class="o">&lt;</span><span class="n">userid</span><span class="o">&gt;</span><span class="nd">@login</span><span class="o">.</span><span class="n">brazos</span><span class="o">.</span><span class="n">tamu</span><span class="o">.</span><span class="n">edu</span>
+</pre></div>
+</div>
+<p>If you are viewing images or using a graphics intensive GUI (e.g., conn), you will need to connect using Virtual GL (see below) or use <a class="reference external" href="http://www.brazos.tamu.edu/docs/graphical_login.html">X2Go Remote Desktop</a>. I have found that VirtualGL is faster, but novices to linux environments may be more comfortable using the X2Go Remote Desktop.</p>
+<div class="section" id="virtual-gl-turbovnc-graphical-connection">
+<h4>Virtual GL &amp; TurboVNC Graphical Connection<a class="headerlink" href="#virtual-gl-turbovnc-graphical-connection" title="Permalink to this headline">¶</a></h4>
+<p>For a Virtual GL with TurboVNC graphical connection, follow the following steps:</p>
+<p>1. Download and install <a class="reference external" href="https://sourceforge.net/projects/virtualgl/files/">VirtualGL</a> as well as <a class="reference external" href="https://sourceforge.net/projects/turbovnc/files/">TurboVNC</a>.</p>
+<p>2. Open terminal on local computer and ssh to gfx.brazos.tamu.edu. Start a VNC server session using the command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vncserver</span>
+</pre></div>
+</div>
+<p>You will be prompted to set (and confirm) a password. If it was successful, you will obtain something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Desktop</span> <span class="s1">&#39;TurboVNC: gfx.brazos.tamu.edu:1 (joseph.orr)&#39;</span> <span class="n">started</span> <span class="n">on</span> <span class="n">display</span> <span class="n">gfx</span><span class="o">.</span><span class="n">brazos</span><span class="o">.</span><span class="n">tamu</span><span class="o">.</span><span class="n">edu</span><span class="p">:</span><span class="mi">1</span>
+<span class="n">Starting</span> <span class="n">applications</span> <span class="n">specified</span> <span class="ow">in</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">joseph</span><span class="o">.</span><span class="n">orr</span><span class="o">/.</span><span class="n">vnc</span><span class="o">/</span><span class="n">xstartup</span><span class="o">.</span><span class="n">turbovnc</span>
+<span class="n">Log</span> <span class="n">file</span> <span class="ow">is</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">joseph</span><span class="o">.</span><span class="n">orr</span><span class="o">/.</span><span class="n">vnc</span><span class="o">/</span><span class="n">gfx</span><span class="o">.</span><span class="n">brazos</span><span class="o">.</span><span class="n">tamu</span><span class="o">.</span><span class="n">edu</span><span class="p">:</span><span class="mf">1.</span><span class="n">log</span>
+</pre></div>
+</div>
+<p>You need to make a note of the display number, e.g., login:1, as this is your individual display. You will next need to ssh while opening a tunnel to the VNC display port, which is determined by added the display number to <cite>5900</cite>, e.g., <cite>1 + 5900 = 5901</cite>. You should now exit to close your ssh connection.</p>
+<p>3. In your local computer terminal, you need to create an ssh tunnel for encrypting the VNC stream by typing</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">L</span> <span class="o">&lt;</span><span class="n">vncport</span><span class="o">&gt;</span><span class="p">:</span><span class="n">localhost</span><span class="p">:</span><span class="o">&lt;</span><span class="n">vncport</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">netid</span><span class="o">&gt;</span><span class="nd">@gfx</span><span class="o">.</span><span class="n">brazos</span><span class="o">.</span><span class="n">tamu</span><span class="o">.</span><span class="n">edu</span>
+</pre></div>
+</div>
+<p>where &lt;vncport&gt; is your VNC display port determined in the previous step, e.g., 5901.</p>
+<p>4. You can now open TurboVNC Viewer on your local machine and enter the vncserver as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">localhost</span><span class="p">:</span><span class="o">&lt;</span><span class="n">vncport</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>5. This will open a remote desktop on brazos. You can then start your graphics program with the <cite>vglrun command</cite>, e.g.,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vglrun</span> <span class="n">matlab</span> <span class="o">-</span><span class="n">nosoftwareopengl</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="loading-software-resources">
+<h3>Loading software resources<a class="headerlink" href="#loading-software-resources" title="Permalink to this headline">¶</a></h3>
+<p>Software on brazos is managed with the <code class="docutils literal notranslate"><span class="pre">modules</span></code> system. To see what software is available on brazos, use <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">avail</span></code>. Psychology software is available after first loading the <cite>psyc</cite> module
+:: module load psyc
+You can then use <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">avail</span></code> to see which software packages, and which versions, are available. If you don’t specify a version, he most recent version is loaded by default.</p>
+<p>To load a specific version you need to give the version number, e.g.,
+:: module load fsl/5.0.10</p>
+<p>By loading a module you are configuring paths and loading any dependent software. Once you load a software module, the executables should be available, e.g.,
+::      $ which fsl</p>
+<blockquote>
+<div><blockquote>
+<div>/usr/bin/which: no fsl in (/home/joseph.orr/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin/brazos)</div></blockquote>
+<p>$ module load psyc
+$ module load fsl
+$ which fsl</p>
+<blockquote>
+<div>/apps/psyc/fsl/5.0.11/bin/fsl</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="submitting-jobs">
+<h3>Submitting jobs<a class="headerlink" href="#submitting-jobs" title="Permalink to this headline">¶</a></h3>
+<p>When you login to the cluster, you are on on the login node, which is only meant for simple processes like editing text files or copying a small number of files. More complicated jobs should be submitted to the compute nodes with the job manager.</p>
+<p>Brazos (as well as terra) use <code class="docutils literal notranslate"><span class="pre">slurm</span></code> for managing jobs, an open source package which is used on most academic computing clusters. Brazos has a good guide to slurm <a class="reference external" href="http://www.brazos.tamu.edu/docs/slurm.html">here</a>. A job is submitted with <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> and monitored with <code class="docutils literal notranslate"><span class="pre">squeue</span></code>. If you need to actively monitor or interface with a job, you can start an interactive job with the wrapper <code class="docutils literal notranslate"><span class="pre">sintr</span></code>. This will queue the resources needed on a compute node.</p>
+<p>FSL has a built in program for submitting jobs to slurm called <code class="docutils literal notranslate"><span class="pre">fsl_sub</span></code> that is used instead of <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>, and actually uses <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> to submit your job to slurm. However, many packages will self-submit so you won’t need to use <code class="docutils literal notranslate"><span class="pre">fsl_sub</span></code>. A list of this programs is found <a class="reference external" href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/SGE%20submission%20FAQ">here</a>, and includes <code class="docutils literal notranslate"><span class="pre">feat</span></code>.</p>
+</div>
+</div>
+<div class="section" id="terra-supercomputer">
+<h2>Terra Supercomputer<a class="headerlink" href="#terra-supercomputer" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>terra</cite> machine is the newest cluster available to members of TAMU through the High Performance Research Computing (HPRC) Center. Unlike <cite>brazos</cite>, <cite>terra</cite> is considered a <cite>high-performance</cite> cluster as opposed to a <cite>high-throughput</cite> cluster, meaning that it is optimized for highly parallel operations. The compute nodes generally have much less RAM that the compute nodes on brazos nodes. However, terra has many more cores than blanca, so if you are running large-scale analyses, terra may be more useful than brazos. Terra also has a good number of GPU nodes for running CUDA-capable jobs, e.g., diffusion preprocessing.</p>
+<p>The terra user guide can be found <a class="reference external" href="https://hprc.tamu.edu/wiki/Terra">here</a>. The only fMRI software currently installed on terra is FSL v. 5.0.10, but you can request the installation of other software by <a class="reference external" href="mailto:help&#37;&#52;&#48;hprc&#46;tamu&#46;edu">emailing the HPRC Help</a>.</p>
+<div class="section" id="remote-visualization">
+<h3>Remote Visualization<a class="headerlink" href="#remote-visualization" title="Permalink to this headline">¶</a></h3>
+<p>The HPRC Wiki has a great page on <a class="reference external" href="https://hprc.tamu.edu/wiki/Terra:Remote-Viz">remote visualization</a>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="scanning.html" title="previous chapter">Scanning at TIPS</a></li>
+      <li>Next: <a href="conversion.html" title="next chapter">Converting Raw Data</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Joseph M. Orr.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/computing.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
