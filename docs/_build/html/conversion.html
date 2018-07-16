@@ -91,8 +91,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#bidskit">BIDSKIT</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#procedures">Procedures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#piloting">Piloting</a></li>
 </ul>
 </li>
 </ul>
@@ -163,9 +161,12 @@
 <h1>Converting Raw Data<a class="headerlink" href="#converting-raw-data" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="dicom-conversion">
 <h2>DICOM Conversion<a class="headerlink" href="#dicom-conversion" title="Permalink to this headline">¶</a></h2>
-<p>Data is saved from the scanner in a raw format called DICOM. On the TIPS scanner the files have the ending .IMA, but these are a form of DICOM. As DICOM images cannot be read by most software packages, we need to convert them to a standard format for neuroimaging software. The current standard is NIFTI (.nii). The most common way to perform a DICOM-to-NIFTI conversion is a package developed bu Chris Rorden called <cite>dcm2nii</cite>. The current version of <cite>dcm2nii</cite> is called <cite>dcm2niix</cite> &lt;<a class="reference external" href="https://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage">https://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage</a>&gt;`_.</p>
-<p>To convert your DICOM image you can simply call <code class="docutils literal notranslate"><span class="pre">dcm2niix</span></code> as follows:
-<code class="docutils literal notranslate"><span class="pre">dcm2niix</span> <span class="pre">&lt;dicomdir&gt;</span></code> where <code class="docutils literal notranslate"><span class="pre">&lt;dicomdir&gt;</span></code> is the directory containing the DICOM images for a given scan.</p>
+<p>Data is saved from the scanner in a raw format called DICOM. On the TIPS scanner the files have the ending .IMA, but these are a form of DICOM. As DICOM images cannot be read by most software packages, we need to convert them to a standard format for neuroimaging software. The current standard is NIFTI (.nii). The most common way to perform a DICOM-to-NIFTI conversion is a package developed bu Chris Rorden called <cite>dcm2nii</cite>. The current version of <code class="docutils literal notranslate"><span class="pre">dcm2nii</span></code> is called <a class="reference external" href="https://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage">dcm2niix</a>.</p>
+<p>To convert your DICOM image you can simply call <code class="docutils literal notranslate"><span class="pre">dcm2niix</span></code> as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dcm2niix</span> <span class="o">&lt;</span><span class="n">dicomdir</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;dicomdir&gt;</span></code> is the directory containing the DICOM images for a given scan.</p>
 </div>
 <div class="section" id="bids-format">
 <h2>BIDS Format<a class="headerlink" href="#bids-format" title="Permalink to this headline">¶</a></h2>
@@ -176,16 +177,6 @@
 <h3>BIDSKIT<a class="headerlink" href="#bidskit" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">bidskit</span></code> is run in a two step process. The first step converts the DICOM to NIFTI format and the second step organizes the converted files in the BIDS stucture.</p>
 </div>
-</div>
-<div class="section" id="procedures">
-<h2>Procedures<a class="headerlink" href="#procedures" title="Permalink to this headline">¶</a></h2>
-<p>For setting up a new study at TIPS:
-* X
-* Y
-* Z</p>
-</div>
-<div class="section" id="piloting">
-<h2>Piloting<a class="headerlink" href="#piloting" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
