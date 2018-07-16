@@ -9,6 +9,7 @@ Data Storage Server
 Once a scan is completed, it is transferred to the Department's storage server (see your PI or Hugh McCann for access). This server had to be mounted on your local computer. Once the server is mounted on your computer you can transfer the files to your local workstations or to a computing cluster. Both brazos and terra are accessible through globus. You must install globus on your local computer and set it up as an endpoint. As part of the set-up, you must add access to mounted drives (e.g., the storage share or GoogleDrive), as shown `in these instructions <https://docs.globus.org/how-to/globus-connect-personal-mac/>`_.
 
 `Brazos Globus Instructions <http://www.brazos.tamu.edu/docs/globusonline.html/>`_
+
 `Terra Globus Instructions <https://hprc.tamu.edu/wiki/SW:GlobusConnect>`_
 
 =========================
