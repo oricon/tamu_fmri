@@ -11,8 +11,7 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-   starting
+   irb
    scanning
-   other
    computing
    conversion

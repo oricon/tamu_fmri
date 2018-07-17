@@ -1,5 +1,3 @@
-.. include:: links.rst
-
 TAMU MRI Resources
 ==================
 
@@ -9,10 +7,12 @@ About
 -----
 
 .. image:: PSYC_Black_Text_Web.png
+	:target: images/PSYC_Black_Text_Web.png
 
 Human neuroimaging at A&M is carried out at the TIPS facility on a Siemens Verio 3T Scanner. More information about the facility can be found here: `TIPS Facility <http://tips.tamu.edu/>`_.
 
 .. image:: tips-outside.jpg
+	:target: images/tips-outside.jpg
 
 Contact
 -------
