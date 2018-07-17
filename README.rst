@@ -1,5 +1,6 @@
 TAMU MRI Resources
 ==================
+`<http://tamu-fmri.readthedocs.io/en/latest/>`_.
 
 This site is meant to reserve as a comprehensive guide and repository for resources to support neuroimaging research in the Department of Psychological and Brain Science at Texas A&M University. Currently, there are guides for setting up a study at TIPS, available MRI sequences, other resources at TIPS, and computing resources.
 
