@@ -97,6 +97,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#submitting-jobs">Submitting jobs</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#running-containerized-jobs">Running containerized jobs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#terra-supercomputer">Terra Supercomputer</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#remote-visualization">Remote Visualization</a></li>
 </ul>
@@ -249,6 +252,18 @@ $ which fsl</p>
 <p>FSL has a built in program for submitting jobs to slurm called <code class="docutils literal notranslate"><span class="pre">fsl_sub</span></code> that is used instead of <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>, and actually uses <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> to submit your job to slurm. However, many packages will self-submit so you won’t need to use <code class="docutils literal notranslate"><span class="pre">fsl_sub</span></code>. A list of this programs is found <a class="reference external" href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/SGE%20submission%20FAQ">here</a>, and includes <code class="docutils literal notranslate"><span class="pre">feat</span></code>.</p>
 </div>
 </div>
+</div>
+<div class="section" id="running-containerized-jobs">
+<h1>Running containerized jobs<a class="headerlink" href="#running-containerized-jobs" title="Permalink to this headline">¶</a></h1>
+<p>There is a growing trend in software to use <em>containers</em>, which are “lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.” Containers are useful for running software that require lots of library dependencies that might lead to compatability issues with software already on a system. <strong>Docker</strong> is a leader in the field of container packaging, and there are already several docker container images available for neuroimaging software, e.g., <code class="docutils literal notranslate"><span class="pre">fmriprep</span></code> and <code class="docutils literal notranslate"><span class="pre">mriqc</span></code>. However, docker containers have issues with security on HPC systems, but there is a workaround called <code class="docutils literal notranslate"><span class="pre">singularity</span></code>. <code class="docutils literal notranslate"><span class="pre">singularity</span></code> is available on <code class="docutils literal notranslate"><span class="pre">brazos</span></code> for running container images. Currently, the following containers are available on <code class="docutils literal notranslate"><span class="pre">brazos</span></code>:</p>
+<ul class="simple">
+<li>fmriprep (v. 1.1.4)</li>
+<li>bidskit (v. 1.1.2)</li>
+<li>mriqc (v. 0.14.2)</li>
+</ul>
+<p>Contact <a class="reference external" href="mailto:joseph&#46;orr&#37;&#52;&#48;tamu&#46;edu">joseph<span>&#46;</span>orr<span>&#64;</span>tamu<span>&#46;</span>edu</a> for adding new container images to brazos. Your container image will be placed in <code class="docutils literal notranslate"><span class="pre">/apps/psyc/containers</span></code></p>
+<p>To submit a container job to slurm, you must create a submission script as discucced above (Brazos&gt;Submitting jobs). The submission script will can singularity as follows
+::      singularity run &lt;container&gt;.simg &lt;container commands&gt;</p>
 <div class="section" id="terra-supercomputer">
 <h2>Terra Supercomputer<a class="headerlink" href="#terra-supercomputer" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>terra</cite> machine is the newest cluster available to members of TAMU through the High Performance Research Computing (HPRC) Center. Unlike <cite>brazos</cite>, <cite>terra</cite> is considered a <cite>high-performance</cite> cluster as opposed to a <cite>high-throughput</cite> cluster, meaning that it is optimized for highly parallel operations. The compute nodes generally have much less RAM that the compute nodes on brazos nodes. However, terra has many more cores than blanca, so if you are running large-scale analyses, terra may be more useful than brazos. Terra also has a good number of GPU nodes for running CUDA-capable jobs, e.g., diffusion preprocessing.</p>

@@ -85,6 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="irb.html">MRI Study IRB Procedures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scanning.html">Scanning at TIPS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="computing.html">Neuroimaging Computing Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computing.html#running-containerized-jobs">Running containerized jobs</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Converting Raw Data</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dicom-conversion">DICOM Conversion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bids-format">BIDS Format</a><ul>
@@ -162,20 +163,71 @@
 <div class="section" id="dicom-conversion">
 <h2>DICOM Conversion<a class="headerlink" href="#dicom-conversion" title="Permalink to this headline">¶</a></h2>
 <p>Data is saved from the scanner in a raw format called DICOM. On the TIPS scanner the files have the ending .IMA, but these are a form of DICOM. As DICOM images cannot be read by most software packages, we need to convert them to a standard format for neuroimaging software. The current standard is NIFTI (.nii). The most common way to perform a DICOM-to-NIFTI conversion is a package developed bu Chris Rorden called <cite>dcm2nii</cite>. The current version of <code class="docutils literal notranslate"><span class="pre">dcm2nii</span></code> is called <a class="reference external" href="https://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage">dcm2niix</a>.</p>
-<p>To convert your DICOM image you can simply call <code class="docutils literal notranslate"><span class="pre">dcm2niix</span></code> as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dcm2niix</span> <span class="o">&lt;</span><span class="n">dicomdir</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<p>where <code class="docutils literal notranslate"><span class="pre">&lt;dicomdir&gt;</span></code> is the directory containing the DICOM images for a given scan.</p>
+<p>To convert your DICOM image you can simply call <code class="docutils literal notranslate"><span class="pre">dcm2niix</span></code> as follows: <code class="docutils literal notranslate"><span class="pre">dcm2niix</span> <span class="pre">&lt;dicomdir&gt;</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;dicomdir&gt;</span></code> is the directory containing the DICOM images for a given scan.</p>
 </div>
 <div class="section" id="bids-format">
 <h2>BIDS Format<a class="headerlink" href="#bids-format" title="Permalink to this headline">¶</a></h2>
-<p>I have a more thorough description of the BIDS format elsewhere, but briefly, BIDS (Brain Imaging Data Structure) is an attempt at creating a standardized organization structure for neuroimaging experiments. One benefit of BIDS is that every scan has a .JSON file accompanying the NIFTI files which contains descriptive information about the scan, such as scanning parameters. Most of this information come straight from the DICOM file headers, but this information is usually lost when converting to NIFTI format.</p>
-<p>There are several tools for converting your DICOM images to BIDS format. I am most familiar with the <code class="docutils literal notranslate"><span class="pre">bidskit</span></code> python utility, but the <code class="docutils literal notranslate"><span class="pre">heudiconv</span></code> tool is also a popular tool for DICOM to BIDS conversion.</p>
+<p>Brain Imaging Data Structure or <a class="reference external" href="http://bids.neuroimaging.io/">BIDS</a> is an attempt at creating a standardized organization structure for neuroimaging experiments. One benefit of BIDS is that every scan has a .JSON file accompanying the NIFTI files which contains descriptive information about the scan, such as scanning parameters. Most of this information come straight from the DICOM file headers, but this information is usually lost when converting to NIFTI format. BIDS also has specifications for behavioral data, esp. timing files used for fMRI. One of the main purposes of BIDS is to make sharing data as easy as possible. There are also data preprocessing and analysis tools now available that can run pipelines on your data with little need for user input, as the specification contains most of the critical information about settings. Examples are: <code class="docutils literal notranslate"><span class="pre">fmriprep``and</span> <span class="pre">``mriqc</span></code>.</p>
+<p>There are several tools for converting your DICOM images to BIDS format. I am most familiar with the <code class="docutils literal notranslate"><span class="pre">bidskit</span></code> utility, but the <code class="docutils literal notranslate"><span class="pre">heudiconv</span></code> tool is also a popular tool for DICOM to BIDS conversion.</p>
 <p><code class="docutils literal notranslate"><span class="pre">bidskit</span></code> is current installed on brazos, but <code class="docutils literal notranslate"><span class="pre">heudiconv</span></code> is not.</p>
 <div class="section" id="bidskit">
 <h3>BIDSKIT<a class="headerlink" href="#bidskit" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">bidskit</span></code> is run in a two step process. The first step converts the DICOM to NIFTI format and the second step organizes the converted files in the BIDS stucture.</p>
+<p>To run bidskit call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">singularity</span> <span class="n">run</span> <span class="o">--</span><span class="n">clean</span><span class="o">-</span><span class="n">env</span> <span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="n">psyc</span><span class="o">/</span><span class="n">containers</span><span class="o">/</span><span class="n">bidskit</span><span class="o">/&lt;</span><span class="n">version</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">dicomdir</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">bidsdir</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;version&gt;</span></code> is the version of bidskit you want to use, <code class="docutils literal notranslate"><span class="pre">dicomdir</span></code> is the path to the directory with all of your subject’s dicom data, and <code class="docutils literal notranslate"><span class="pre">bidsdir</span></code> is the path of the directory where you would like to put the bids formatted output.</p>
+<p>The first pass performs the actual dicom to nifti conversion so it takes a long time. The first pass conversion will create new translator dictionary (Protocol_Translator.json) in the root DICOM folder. This has been prefilled with the protocol series names from the DICOM header of all unique series detected in the original DICOM files. The command will also create the new BIDS directory containing a single temporary conversion directory containing Nifti images and JSON sidecars for all series in the source DICOM folder. You will need to edit the translator dictionary so that each scan has the necessary information from the bids specifications. Here is an example of a study with structural, rest, functional, and diffusion images as well as distortion correction fieldmap-type images:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;Localizer&quot;</span><span class="p">:[</span>
+        <span class="s2">&quot;EXCLUDE_BIDS_Directory&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;EXCLUDE_BIDS_Name&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UNASSIGNED&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;rsBOLD_MB_1&quot;</span><span class="p">:[</span>
+        <span class="s2">&quot;func&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;task-rest_acq-MB_run-01_bold&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UNASSIGNED&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;T1w&quot;</span><span class="p">:[</span>
+        <span class="s2">&quot;anat&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;T1w&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UNASSIGNED&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;LearnRun1&quot;</span><span class="p">:[</span>
+        <span class="s2">&quot;func&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;task-learn_acq-MB_run-01_bold&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UNASSIGNED&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;LearnRun2&quot;</span><span class="p">:[</span>
+        <span class="s2">&quot;func&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;task-learn_acq-MB_run-02_bold&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UNASSIGNED&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;learn_distcorrAP&quot;</span><span class="p">:[</span>
+        <span class="s2">&quot;fmap&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dir-AP_epi.nii.gz&quot;</span><span class="p">,</span>
+        <span class="p">[</span><span class="s2">&quot;task-learn_acq-MB_run-02_bold&quot;</span><span class="p">,</span><span class="s2">&quot;dwi_96dir_PA&quot;</span><span class="p">]</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;learn_distcorrPA&quot;</span><span class="p">:[</span>
+        <span class="s2">&quot;fmap&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dir-PA_epi.nii.gz&quot;</span><span class="p">,</span>
+        <span class="p">[</span><span class="s2">&quot;task-learn_acq-MB_run-01_bold&quot;</span><span class="p">,</span><span class="s2">&quot;dwi_96dir_AP&quot;</span><span class="p">]</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;cmrr_mbep2d_diff_directions96_AtoP&quot;</span><span class="p">:[</span>
+        <span class="s2">&quot;dwi&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dwi_96dir_AP&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UNASSIGNED&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;cmrr_mbep2d_diff_directions96_PtoA&quot;</span><span class="p">:[</span>
+        <span class="s2">&quot;dwi&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dwi_96dir_PA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;UNASSIGNED&quot;</span>
+<span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>

@@ -86,7 +86,24 @@ When you login to the cluster, you are on on the login node, which is only meant
 
 Brazos (as well as terra) use ``slurm`` for managing jobs, an open source package which is used on most academic computing clusters. Brazos has a good guide to slurm `here <http://www.brazos.tamu.edu/docs/slurm.html>`_. A job is submitted with ``sbatch`` and monitored with ``squeue``. If you need to actively monitor or interface with a job, you can start an interactive job with the wrapper ``sintr``. This will queue the resources needed on a compute node.
 
-FSL has a built in program for submitting jobs to slurm called ``fsl_sub`` that is used instead of ``sbatch``, and actually uses ``sbatch`` to submit your job to slurm. However, many packages will self-submit so you won't need to use ``fsl_sub``. A list of this programs is found `here <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/SGE%20submission%20FAQ>`_, and includes ``feat``.  
+FSL has a built in program for submitting jobs to slurm called ``fsl_sub`` that is used instead of ``sbatch``, and actually uses ``sbatch`` to submit your job to slurm. However, many packages will self-submit so you won't need to use ``fsl_sub``. A list of this programs is found `here <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/SGE%20submission%20FAQ>`_, and includes ``feat``.
+
+--------------------------
+Running containerized jobs  
+--------------------------
+There is a growing trend in software to use *containers*, which are "lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings." Containers are useful for running software that require lots of library dependencies that might lead to compatability issues with software already on a system. **Docker** is a leader in the field of container packaging, and there are already several docker container images available for neuroimaging software, e.g., ``fmriprep`` and ``mriqc``. However, docker containers have issues with security on HPC systems, but there is a workaround called ``singularity``. ``singularity`` is available on ``brazos`` for running container images. Currently, the following containers are available on ``brazos``:
+
+- fmriprep (v. 1.1.4)
+- bidskit (v. 1.1.2)
+- mriqc (v. 0.14.2)
+
+Contact joseph.orr@tamu.edu for adding new container images to brazos. Your container image will be placed in ``/apps/psyc/containers``
+
+submitting container jobs to slurm
+----------------------------------
+To submit a container job to slurm, you must create a submission script as discucced above (Brazos>Submitting jobs). The submission script will can singularity as follows
+::	singularity run <container>.simg <container commands>
+
 
 ===================
 Terra Supercomputer
