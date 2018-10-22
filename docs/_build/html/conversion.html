@@ -85,11 +85,11 @@
 <li class="toctree-l1"><a class="reference internal" href="irb.html">MRI Study IRB Procedures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scanning.html">Scanning at TIPS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="computing.html">Neuroimaging Computing Resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="computing.html#running-containerized-jobs">Running containerized jobs</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Converting Raw Data</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dicom-conversion">DICOM Conversion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bids-format">BIDS Format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#bidskit">BIDSKIT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#heudiconv">HEUDICONV</a></li>
 </ul>
 </li>
 </ul>
@@ -169,7 +169,7 @@
 <h2>BIDS Format<a class="headerlink" href="#bids-format" title="Permalink to this headline">¶</a></h2>
 <p>Brain Imaging Data Structure or <a class="reference external" href="http://bids.neuroimaging.io/">BIDS</a> is an attempt at creating a standardized organization structure for neuroimaging experiments. One benefit of BIDS is that every scan has a .JSON file accompanying the NIFTI files which contains descriptive information about the scan, such as scanning parameters. Most of this information come straight from the DICOM file headers, but this information is usually lost when converting to NIFTI format. BIDS also has specifications for behavioral data, esp. timing files used for fMRI. One of the main purposes of BIDS is to make sharing data as easy as possible. There are also data preprocessing and analysis tools now available that can run pipelines on your data with little need for user input, as the specification contains most of the critical information about settings. Examples are: <code class="docutils literal notranslate"><span class="pre">fmriprep``and</span> <span class="pre">``mriqc</span></code>.</p>
 <p>There are several tools for converting your DICOM images to BIDS format. I am most familiar with the <code class="docutils literal notranslate"><span class="pre">bidskit</span></code> utility, but the <code class="docutils literal notranslate"><span class="pre">heudiconv</span></code> tool is also a popular tool for DICOM to BIDS conversion.</p>
-<p><code class="docutils literal notranslate"><span class="pre">bidskit</span></code> is current installed on brazos, but <code class="docutils literal notranslate"><span class="pre">heudiconv</span></code> is not.</p>
+<p><code class="docutils literal notranslate"><span class="pre">bidskit</span></code> is current installed on brazos as a container (see below). <code class="docutils literal notranslate"><span class="pre">heudiconv</span></code> is installed to the <code class="docutils literal notranslate"><span class="pre">anaconda3</span></code> module.</p>
 <div class="section" id="bidskit">
 <h3>BIDSKIT<a class="headerlink" href="#bidskit" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">bidskit</span></code> is run in a two step process. The first step converts the DICOM to NIFTI format and the second step organizes the converted files in the BIDS stucture.</p>
@@ -226,6 +226,13 @@
         <span class="s2">&quot;UNASSIGNED&quot;</span>
 <span class="p">]</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="heudiconv">
+<h3>HEUDICONV<a class="headerlink" href="#heudiconv" title="Permalink to this headline">¶</a></h3>
+<p>Information on heudiconv can be found here: <a class="reference external" href="https://github.com/nipy/heudiconv">heudiconv</a>. To use it you need to load the modules for <code class="docutils literal notranslate"><span class="pre">anaconda3</span></code> and <code class="docutils literal notranslate"><span class="pre">dcm2niix</span></code>. To run <code class="docutils literal notranslate"><span class="pre">heudiconv</span></code> you need to create a heuristic file. There is documentation on the file requirements at the website above. If you are using the CMRR multiband sequences:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">srun</span> <span class="n">heudiconv</span> <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;</span><span class="si">{subject}</span><span class="s1">/</span><span class="si">{session}</span><span class="s1">/*/*IMA&#39;</span> <span class="o">-</span><span class="n">s</span> <span class="n">TEST</span> <span class="o">-</span><span class="n">ss</span> <span class="n">sess1</span> <span class="o">-</span><span class="n">f</span> <span class="o">/</span><span class="n">fdata</span><span class="o">/</span><span class="n">scratch</span><span class="o">/</span><span class="n">joseph</span><span class="o">.</span><span class="n">orr</span><span class="o">/</span><span class="n">t3</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">cmrr_heuristic_vts</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div>

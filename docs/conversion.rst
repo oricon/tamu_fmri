@@ -14,7 +14,7 @@ Brain Imaging Data Structure or `BIDS <http://bids.neuroimaging.io/>`_ is an att
 
 There are several tools for converting your DICOM images to BIDS format. I am most familiar with the ``bidskit`` utility, but the ``heudiconv`` tool is also a popular tool for DICOM to BIDS conversion.
 
-``bidskit`` is current installed on brazos, but ``heudiconv`` is not.
+``bidskit`` is current installed on brazos as a container (see below). ``heudiconv`` is installed to the ``anaconda3`` module.
 
 
 BIDSKIT
@@ -76,3 +76,10 @@ The first pass performs the actual dicom to nifti conversion so it takes a long 
 	        "UNASSIGNED"
     	]
 	}
+
+HEUDICONV
+---------
+Information on heudiconv can be found here: `heudiconv <https://github.com/nipy/heudiconv>`_. To use it you need to load the modules for ``anaconda3`` and ``dcm2niix``. To run ``heudiconv`` you need to create a heuristic file. There is documentation on the file requirements at the website above. If you are using the CMRR multiband sequences::
+
+	srun heudiconv -d '{subject}/{session}/*/*IMA' -s TEST -ss sess1 -f /fdata/scratch/joseph.orr/t3/tools/bin/cmrr_heuristic_vts.py
+

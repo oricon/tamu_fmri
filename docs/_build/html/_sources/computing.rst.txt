@@ -40,7 +40,7 @@ For a Virtual GL with TurboVNC graphical connection, follow the following steps:
 
 \1. Download and install `VirtualGL <https://sourceforge.net/projects/virtualgl/files/>`_ as well as `TurboVNC <https://sourceforge.net/projects/turbovnc/files/>`_.
 
-2. Open terminal on local computer and ssh to gfx.brazos.tamu.edu. Start a VNC server session using the command::
+2. Open terminal on local computer and ssh to gfx.brazos.tamu.edu. You can check if you already have a running vncserver with the command ``ps axu | grep vnc | grep \($USER)\``. If you don't already have a running server, start a VNC server session using the command::
 
 	vncserver
 
