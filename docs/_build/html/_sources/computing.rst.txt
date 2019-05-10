@@ -98,7 +98,7 @@ A lot of MRI software is available as a container through `neurodocker <https://
 Contact joseph.orr@tamu.edu for adding new container images to brazos. Your container image will be placed in ``/apps/psyc/containers``
 
 Submitting jobs
----------------
+~~~~~~~~~~~~~~~
 When you login to the cluster, you are on on the login node, which is only meant for simple processes like editing text files or copying a small number of files. More complicated jobs should be submitted to the compute nodes with the job manager.
 
 Brazos (as well as terra) use ``slurm`` for managing jobs, an open source package which is used on most academic computing clusters. Brazos has a good guide to `slurm <http://www.brazos.tamu.edu/docs/slurm.html>`_. A job is submitted with ``sbatch`` and monitored with ``squeue``. If you need to actively monitor or interface with a job, you can start an interactive job with the wrapper ``sintr``. This will queue the resources needed on a compute node.
@@ -106,7 +106,7 @@ Brazos (as well as terra) use ``slurm`` for managing jobs, an open source packag
 FSL has a built in program for submitting jobs to slurm called ``fsl_sub`` that actually uses ``sbatch`` to submit your job to slurm. However, many packages will self-submit so you won't need to use ``fsl_sub``. A list of the self-submitting programs is found `here <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/SGE%20submission%20FAQ>`_, and includes ``feat``. Because many of these self-submitting jobs do some organizational procedures on the login node before submitting, you may need to call them from a interactive node.
 
 submitting container jobs to slurm
-----------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 To submit a container job to slurm, you must create a submission script as discucced above (Brazos>Submitting jobs). The submission script will call singularity as follows::	
 
 	singularity run <container>.simg <container commands>

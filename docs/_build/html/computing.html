@@ -96,10 +96,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#loading-software-resources">Loading software resources</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#running-containerized-jobs">Running containerized jobs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submitting-jobs">Submitting jobs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submitting-container-jobs-to-slurm">submitting container jobs to slurm</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#submitting-jobs">Submitting jobs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#submitting-container-jobs-to-slurm">submitting container jobs to slurm</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#terra-supercomputer">Terra Supercomputer</a><ul>
@@ -266,20 +266,20 @@ $ which fsl
 <p>A lot of MRI software is available as a container through <a class="reference external" href="https://github.com/kaczmarj/neurodocker">neurodocker</a>.</p>
 <p>Contact <a class="reference external" href="mailto:joseph&#46;orr&#37;&#52;&#48;tamu&#46;edu">joseph<span>&#46;</span>orr<span>&#64;</span>tamu<span>&#46;</span>edu</a> for adding new container images to brazos. Your container image will be placed in <code class="docutils literal notranslate"><span class="pre">/apps/psyc/containers</span></code></p>
 </div>
-</div>
 <div class="section" id="submitting-jobs">
-<h3>Submitting jobs<a class="headerlink" href="#submitting-jobs" title="Permalink to this headline">¶</a></h3>
+<h4>Submitting jobs<a class="headerlink" href="#submitting-jobs" title="Permalink to this headline">¶</a></h4>
 <p>When you login to the cluster, you are on on the login node, which is only meant for simple processes like editing text files or copying a small number of files. More complicated jobs should be submitted to the compute nodes with the job manager.</p>
 <p>Brazos (as well as terra) use <code class="docutils literal notranslate"><span class="pre">slurm</span></code> for managing jobs, an open source package which is used on most academic computing clusters. Brazos has a good guide to <a class="reference external" href="http://www.brazos.tamu.edu/docs/slurm.html">slurm</a>. A job is submitted with <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> and monitored with <code class="docutils literal notranslate"><span class="pre">squeue</span></code>. If you need to actively monitor or interface with a job, you can start an interactive job with the wrapper <code class="docutils literal notranslate"><span class="pre">sintr</span></code>. This will queue the resources needed on a compute node.</p>
 <p>FSL has a built in program for submitting jobs to slurm called <code class="docutils literal notranslate"><span class="pre">fsl_sub</span></code> that actually uses <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> to submit your job to slurm. However, many packages will self-submit so you won’t need to use <code class="docutils literal notranslate"><span class="pre">fsl_sub</span></code>. A list of the self-submitting programs is found <a class="reference external" href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/SGE%20submission%20FAQ">here</a>, and includes <code class="docutils literal notranslate"><span class="pre">feat</span></code>. Because many of these self-submitting jobs do some organizational procedures on the login node before submitting, you may need to call them from a interactive node.</p>
 </div>
 <div class="section" id="submitting-container-jobs-to-slurm">
-<h3>submitting container jobs to slurm<a class="headerlink" href="#submitting-container-jobs-to-slurm" title="Permalink to this headline">¶</a></h3>
+<h4>submitting container jobs to slurm<a class="headerlink" href="#submitting-container-jobs-to-slurm" title="Permalink to this headline">¶</a></h4>
 <p>To submit a container job to slurm, you must create a submission script as discucced above (Brazos&gt;Submitting jobs). The submission script will call singularity as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">singularity</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">container</span><span class="o">&gt;.</span><span class="n">simg</span> <span class="o">&lt;</span><span class="n">container</span> <span class="n">commands</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>AFNI (and possibly other containers) can be run interactively, meaning you can pull up the typical GUI and work with that. To do this however, you will need to run the container as an interactive job so that it isn’t running on the login node. You will need to make a slurm submission script, but instead of calling it with <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> you can use <code class="docutils literal notranslate"><span class="pre">srun</span></code> instead. In your submission script you will need to specify the required walltime, RAM, nCPUS, etc.</p>
+</div>
 </div>
 </div>
 <div class="section" id="terra-supercomputer">
