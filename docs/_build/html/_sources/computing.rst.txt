@@ -81,29 +81,37 @@ By loading a module you are configuring paths and loading any dependent software
 	$ which fsl
 		/apps/psyc/fsl/5.0.11/bin/fsl
 
+Running containerized jobs  
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+There is a growing trend in software to use *containers*, which are "lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings." Containers are useful for running software that require lots of library dependencies that might lead to compatability issues with software already on a system. **Docker** is a leader in the field of container packaging, and there are already several docker container images available for neuroimaging software, e.g., ``fmriprep`` and ``mriqc``. However, docker containers have issues with security on HPC systems, but there is a workaround called ``singularity``. ``singularity`` is available on ``brazos`` for running container images. Currently, the following containers are available on ``brazos``:
+
+- fmriprep (fMRI Pre-processing pipeline)
+- bidskit (dicom to bids conversion)
+- heudiconv (dicom to bids conversion)
+- mriqc (mri quality control)
+- afni (fMRI Processing toolbox)
+- bidsvalidator (tool for validating bids specification dataset)
+- ciftify (tool for converting non-HCP dataset to cifti format--combined file with cortical surface and subcortical volumes--so HCP Pipeline tools can be used)
+
+A lot of MRI software is available as a container through `neurodocker <https://github.com/kaczmarj/neurodocker>`_.
+
+Contact joseph.orr@tamu.edu for adding new container images to brazos. Your container image will be placed in ``/apps/psyc/containers``
+
 Submitting jobs
 ---------------
 When you login to the cluster, you are on on the login node, which is only meant for simple processes like editing text files or copying a small number of files. More complicated jobs should be submitted to the compute nodes with the job manager.
 
 Brazos (as well as terra) use ``slurm`` for managing jobs, an open source package which is used on most academic computing clusters. Brazos has a good guide to `slurm <http://www.brazos.tamu.edu/docs/slurm.html>`_. A job is submitted with ``sbatch`` and monitored with ``squeue``. If you need to actively monitor or interface with a job, you can start an interactive job with the wrapper ``sintr``. This will queue the resources needed on a compute node.
 
-FSL has a built in program for submitting jobs to slurm called ``fsl_sub`` that is used instead of ``sbatch``, and actually uses ``sbatch`` to submit your job to slurm. However, many packages will self-submit so you won't need to use ``fsl_sub``. A list of this programs is found `here <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/SGE%20submission%20FAQ>`_, and includes ``feat``.
-
-Running containerized jobs  
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-There is a growing trend in software to use *containers*, which are "lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings." Containers are useful for running software that require lots of library dependencies that might lead to compatability issues with software already on a system. **Docker** is a leader in the field of container packaging, and there are already several docker container images available for neuroimaging software, e.g., ``fmriprep`` and ``mriqc``. However, docker containers have issues with security on HPC systems, but there is a workaround called ``singularity``. ``singularity`` is available on ``brazos`` for running container images. Currently, the following containers are available on ``brazos``:
-
-- fmriprep (v. 1.1.4)
-- bidskit (v. 1.1.2)
-- mriqc (v. 0.14.2)
-
-Contact joseph.orr@tamu.edu for adding new container images to brazos. Your container image will be placed in ``/apps/psyc/containers``
+FSL has a built in program for submitting jobs to slurm called ``fsl_sub`` that actually uses ``sbatch`` to submit your job to slurm. However, many packages will self-submit so you won't need to use ``fsl_sub``. A list of the self-submitting programs is found `here <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/SGE%20submission%20FAQ>`_, and includes ``feat``. Because many of these self-submitting jobs do some organizational procedures on the login node before submitting, you may need to call them from a interactive node.
 
 submitting container jobs to slurm
 ----------------------------------
-To submit a container job to slurm, you must create a submission script as discucced above (Brazos>Submitting jobs). The submission script will can singularity as follows::	
+To submit a container job to slurm, you must create a submission script as discucced above (Brazos>Submitting jobs). The submission script will call singularity as follows::	
 
 	singularity run <container>.simg <container commands>
+
+AFNI (and possibly other containers) can be run interactively, meaning you can pull up the typical GUI and work with that. To do this however, you will need to run the container as an interactive job so that it isn't running on the login node. You will need to make a slurm submission script, but instead of calling it with ``sbatch`` you can use ``srun`` instead. In your submission script you will need to specify the required walltime, RAM, nCPUS, etc.
 
 
 ===================
