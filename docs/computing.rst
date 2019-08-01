@@ -81,8 +81,8 @@ By loading a module you are configuring paths and loading any dependent software
 	$ which fsl
 		/apps/psyc/fsl/5.0.11/bin/fsl
 
-Running containerized jobs  
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Container packages
+------------------
 There is a growing trend in software to use *containers*, which are "lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings." Containers are useful for running software that require lots of library dependencies that might lead to compatability issues with software already on a system. **Docker** is a leader in the field of container packaging, and there are already several docker container images available for neuroimaging software, e.g., ``fmriprep`` and ``mriqc``. However, docker containers have issues with security on HPC systems, but there is a workaround called ``singularity``. ``singularity`` is available on ``brazos`` for running container images. Currently, the following containers are available on ``brazos``:
 
 - fmriprep (fMRI Pre-processing pipeline)
@@ -106,18 +106,18 @@ Brazos (as well as terra) use ``slurm`` for managing jobs, an open source packag
 FSL has a built in program for submitting jobs to slurm called ``fsl_sub`` that actually uses ``sbatch`` to submit your job to slurm. However, many packages will self-submit so you won't need to use ``fsl_sub``. A list of the self-submitting programs is found `here <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/SGE%20submission%20FAQ>`_, and includes ``feat``. Because many of these self-submitting jobs do some organizational procedures on the login node before submitting, you may need to call them from a interactive node.
 
 submitting container jobs to slurm
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------
 To submit a container job to slurm, you must create a submission script as discucced above (Brazos>Submitting jobs). The submission script will call singularity as follows::	
 
 	singularity run <container>.simg <container commands>
 
-AFNI (and possibly other containers) can be run interactively, meaning you can pull up the typical GUI and work with that. To do this however, you will need to run the container as an interactive job so that it isn't running on the login node. You will need to make a slurm submission script, but instead of calling it with ``sbatch`` you can use ``srun`` instead. In your submission script you will need to specify the required walltime, RAM, nCPUS, etc.
+AFNI (and possibly other containers) can be run interactively, meaning you can pull up the typical GUI and work with that (use singularity shell). To do this however, you will need to run the container as an interactive job so that it isn't running on the login node. You will need to make a slurm submission script, but instead of calling it with ``sbatch`` you can use ``srun`` instead. In your submission script you will need to specify the required walltime, RAM, nCPUS, etc.
 
 
 ===================
 Terra Supercomputer
 ===================
-The `terra` machine is the newest cluster available to members of TAMU through the High Performance Research Computing (HPRC) Center. Unlike `brazos`, `terra` is considered a `high-performance` cluster as opposed to a `high-throughput` cluster, meaning that it is optimized for highly parallel operations. The compute nodes generally have much less RAM that the compute nodes on brazos nodes. However, terra has many more cores than blanca, so if you are running large-scale analyses, terra may be more useful than brazos. Terra also has a good number of GPU nodes for running CUDA-capable jobs, e.g., diffusion preprocessing. 
+The terra cluster is available to members of TAMU through the High Performance Research Computing (HPRC) Center. Unlike `brazos`, `terra` is considered a `high-performance` cluster as opposed to a `high-throughput` cluster, meaning that it is optimized for highly parallel operations. The compute nodes generally have much less RAM that the compute nodes on brazos nodes. However, terra has many more cores than blanca, so if you are running large-scale analyses, terra may be more useful than brazos. Terra also has a good number of GPU nodes for running CUDA-capable jobs, e.g., diffusion preprocessing. 
 
 `terra user guide <https://hprc.tamu.edu/wiki/Terra>`_. The only fMRI software currently installed on terra is FSL v. 5.0.10, but you can request the installation of other software by `emailing the HPRC Help <mailto:help@hprc.tamu.edu>`_. 
 
