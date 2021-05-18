@@ -8,14 +8,17 @@ Data Storage Server
 ===================
 Once a scan is completed, it is transferred to the Department's storage server (see your PI or Hugh McCann for access). This server had to be mounted on your local computer. Once the server is mounted on your computer you can transfer the files to your local workstations or to a computing cluster. Both brazos and terra are accessible through globus. You must install globus on your local computer and set it up as an endpoint. As part of the set-up, you must add access to mounted drives (e.g., the storage share or GoogleDrive), as shown `in these instructions <https://docs.globus.org/how-to/globus-connect-personal-mac/>`_.
 
-`Brazos Globus Instructions <http://www.brazos.tamu.edu/docs/globusonline.html/>`_
-
 `Terra Globus Instructions <https://hprc.tamu.edu/wiki/SW:GlobusConnect>`_
 
 =========================
 Using a computing cluster
 =========================
 https://campuscluster.illinois.edu/user_info/doc/beginner.html
+
+===================
+ViDaL Cluster
+===================
+The Vidal cluster supports high memory jobs, graphics intensive processes (P100 GPUs), and data requring added security or legal protection (e.g., HIPAA, FERPA). Information on accessing the cluster is available `here <https://vidal.tamu.edu/>`_.
 
 ===================
 Terra Supercomputer
